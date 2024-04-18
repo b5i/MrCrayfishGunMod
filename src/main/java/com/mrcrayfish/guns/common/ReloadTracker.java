@@ -3,6 +3,7 @@ package com.mrcrayfish.guns.common;
 import com.mrcrayfish.framework.api.network.LevelLocation;
 import com.mrcrayfish.guns.Config;
 import com.mrcrayfish.guns.Reference;
+import com.mrcrayfish.guns.init.ModEnchantments;
 import com.mrcrayfish.guns.init.ModSyncedDataKeys;
 import com.mrcrayfish.guns.item.GunItem;
 import com.mrcrayfish.guns.network.PacketHandler;
@@ -17,6 +18,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -122,7 +124,7 @@ public class ReloadTracker
         if(event.phase == TickEvent.Phase.START && !event.player.level.isClientSide)
         {
             Player player = event.player;
-            if(ModSyncedDataKeys.RELOADING.getValue(player))
+            if(ModSyncedDataKeys.RELOADING.getValue(player) || GunEnchantmentHelper.shouldAutoRefill(player.getInventory().getSelected()))
             {
                 if(!RELOAD_TRACKER_MAP.containsKey(player))
                 {

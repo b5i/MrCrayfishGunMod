@@ -142,5 +142,8 @@
     "cgm.action.aim": "Aim",
     "cgm.action.shoot": "Shoot",
     "cgm.action.reload": "Reload",
-    "cgm.action.steady_aim": "Steady Aim"
+    "cgm.action.steady_aim": "Steady Aim",
+
+    "enchantment.cgm.automatic_refill": "Rechargement automatique",
+    "enchantment.cgm.automatic_refill.desc": "Recharge automatiquement l'arme quand le joueur l'a dans la main si l'inventaire du joueur contient les munitions de l'arme."
 }
