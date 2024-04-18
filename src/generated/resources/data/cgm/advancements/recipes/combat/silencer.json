@@ -5,7 +5,19 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:nuggets/iron"
+            "tag": "forge:gems/diamond"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_sponge": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:sponge"
+            ]
           }
         ]
       },
@@ -21,6 +33,7 @@
   "requirements": [
     [
       "has_iron_ingot",
+      "has_sponge",
       "has_the_recipe"
     ]
   ],

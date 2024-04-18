@@ -2,26 +2,30 @@ package com.mrcrayfish.guns.crafting;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Pair;
+import com.mrcrayfish.guns.init.ModEnchantments;
 import com.mrcrayfish.guns.init.ModRecipeSerializers;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -36,6 +40,7 @@ public class WorkbenchRecipeBuilder
     private final List<WorkbenchIngredient> ingredients;
     private final Advancement.Builder advancementBuilder;
     private final List<ICondition> conditions = new ArrayList<>();
+    private Optional<Pair<Enchantment, Integer>> enchantment;
 
     private WorkbenchRecipeBuilder(@Nullable RecipeCategory category, ItemLike item, int count)
     {
@@ -44,6 +49,7 @@ public class WorkbenchRecipeBuilder
         this.count = count;
         this.ingredients = new ArrayList<>();
         this.advancementBuilder = Advancement.Builder.advancement();
+        this.enchantment = Optional.empty();
     }
 
     public static WorkbenchRecipeBuilder crafting(ItemLike item)
@@ -90,6 +96,13 @@ public class WorkbenchRecipeBuilder
         return this;
     }
 
+    // must be an enchant from this mod
+    public WorkbenchRecipeBuilder setResultEnchantment(Enchantment enchantment, Integer level)
+    {
+        this.enchantment = Optional.of(new Pair<>(enchantment, level));
+        return this;
+    }
+
     public void build(Consumer<FinishedRecipe> consumer)
     {
         ResourceLocation resourcelocation = ForgeRegistries.ITEMS.getKey(this.result);
@@ -100,7 +113,7 @@ public class WorkbenchRecipeBuilder
     {
         this.validate(id);
         this.advancementBuilder.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
-        consumer.accept(new WorkbenchRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + (this.category != null ? this.category.getFolderName() : "") + "/" + id.getPath())));
+        consumer.accept(new Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + (this.category != null ? this.category.getFolderName() : "") + "/" + id.getPath()), this.enchantment));
     }
 
     /**
@@ -123,8 +136,9 @@ public class WorkbenchRecipeBuilder
         private final List<ICondition> conditions;
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
+        private final Optional<Pair<Enchantment, Integer>> enchantment;
 
-        public Result(ResourceLocation id, ItemLike item, int count, List<WorkbenchIngredient> ingredients, List<ICondition> conditions, Advancement.Builder advancement, ResourceLocation advancementId)
+        public Result(ResourceLocation id, ItemLike item, int count, List<WorkbenchIngredient> ingredients, List<ICondition> conditions, Advancement.Builder advancement, ResourceLocation advancementId, Optional<Pair<Enchantment, Integer>> enchantment)
         {
             this.id = id;
             this.item = item.asItem();
@@ -133,6 +147,7 @@ public class WorkbenchRecipeBuilder
             this.conditions = conditions;
             this.advancement = advancement;
             this.advancementId = advancementId;
+            this.enchantment = enchantment;
         }
 
         @Override
@@ -151,9 +166,20 @@ public class WorkbenchRecipeBuilder
 
             JsonObject resultObject = new JsonObject();
             resultObject.addProperty("item", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.item)).toString());
-            if(this.count > 1)
-            {
+            if(this.count > 1) {
                 resultObject.addProperty("count", this.count);
+            }
+            if (this.enchantment.isPresent()) {
+                /*
+                String[] descriptionParts = enchantment.get().getFirst().getDescriptionId().split("[.]");
+                if (descriptionParts.length >= 3)
+                {
+                    resultObject.addProperty("enchant", descriptionParts[1] + ":" + descriptionParts[2]);
+                    resultObject.addProperty("enchant_lvl", enchantment.get().getSecond());
+                }
+                 */
+                resultObject.addProperty("enchant", enchantment.get().getFirst().getDescriptionId()); // for the moment not the registry id
+                resultObject.addProperty("enchant_lvl", enchantment.get().getSecond());
             }
             json.add("result", resultObject);
         }

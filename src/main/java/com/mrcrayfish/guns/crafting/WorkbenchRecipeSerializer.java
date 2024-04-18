@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mrcrayfish.guns.init.ModEnchantments;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -11,8 +12,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 /**
  * Author: MrCrayfish
@@ -35,6 +40,14 @@ public class WorkbenchRecipeSerializer implements RecipeSerializer<WorkbenchReci
         }
         JsonObject resultObject = GsonHelper.getAsJsonObject(parent, "result");
         ItemStack resultItem = ShapedRecipe.itemStackFromJson(resultObject);
+        if (resultObject.has("enchant"))
+        {
+            Optional<RegistryObject<Enchantment>> optionalEnchant = ModEnchantments.REGISTER.getEntries().stream().filter(enchantment -> enchantment.get().getDescriptionId().equals(resultObject.get("enchant").getAsString())).findFirst();
+            if (optionalEnchant.isPresent())
+            {
+                resultItem.enchant(optionalEnchant.get().get(), resultObject.get("enchant_lvl").getAsInt()); resultObject.get("enchant");
+            }
+        }
         return new WorkbenchRecipe(recipeId, resultItem, builder.build());
     }
 
