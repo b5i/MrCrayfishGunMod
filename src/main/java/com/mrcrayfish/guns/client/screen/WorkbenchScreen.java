@@ -34,10 +34,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.opengl.GL11;
 
@@ -95,7 +92,7 @@ public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchContainer>
             {
                 weapons.add(recipe);
             }
-            else if(output.getItem() instanceof IAttachment)
+            else if(output.getItem() instanceof IAttachment || output.getItem() instanceof EnchantedBookItem)
             {
                 attachments.add(recipe);
             }

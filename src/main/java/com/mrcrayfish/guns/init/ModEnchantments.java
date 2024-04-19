@@ -10,6 +10,7 @@ import com.mrcrayfish.guns.enchantment.PuncturingEnchantment;
 import com.mrcrayfish.guns.enchantment.QuickHandsEnchantment;
 import com.mrcrayfish.guns.enchantment.ReclaimedEnchantment;
 import com.mrcrayfish.guns.enchantment.TriggerFingerEnchantment;
+import com.mrcrayfish.guns.enchantment.AutomaticRefillEnchantment;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -32,4 +33,6 @@ public class ModEnchantments
     public static final RegistryObject<Enchantment> PUNCTURING = REGISTER.register("puncturing", PuncturingEnchantment::new);
     public static final RegistryObject<Enchantment> FIRE_STARTER = REGISTER.register("fire_starter", FireStarterEnchantment::new);
     //Gravity Impulse (3 levels) - nearby entities will get knocked away from the target location
+
+    public static final RegistryObject<Enchantment> AUTOMATIC_REFILL = REGISTER.register("automatic_refill", AutomaticRefillEnchantment::new);
 }

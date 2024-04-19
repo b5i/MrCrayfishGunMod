@@ -11,14 +11,18 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
+import oshi.util.tuples.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -31,6 +35,7 @@ public class WorkbenchRecipeBuilder
     private final List<WorkbenchIngredient> ingredients;
     private final Advancement.Builder advancementBuilder;
     private final List<ICondition> conditions = new ArrayList<>();
+    private Optional<Pair<Enchantment, Integer>> enchantment;
 
     private WorkbenchRecipeBuilder(ItemLike item, int count)
     {
@@ -38,6 +43,7 @@ public class WorkbenchRecipeBuilder
         this.count = count;
         this.ingredients = new ArrayList<>();
         this.advancementBuilder = Advancement.Builder.advancement();
+        this.enchantment = Optional.empty();
     }
 
     public static WorkbenchRecipeBuilder crafting(ItemLike item)
@@ -74,17 +80,27 @@ public class WorkbenchRecipeBuilder
         return this;
     }
 
+    // must be an enchant from this mod
+    public WorkbenchRecipeBuilder setResultEnchantment(Enchantment enchantment, Integer level)
+    {
+        this.enchantment = Optional.of(new Pair<>(enchantment, level));
+        return this;
+    }
+
     public void build(Consumer<FinishedRecipe> consumer)
     {
         ResourceLocation resourcelocation = Registry.ITEM.getKey(this.result);
         this.build(consumer, resourcelocation);
     }
 
-    public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id)
-    {
+    public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
         this.validate(id);
         this.advancementBuilder.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
-        consumer.accept(new WorkbenchRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + id.getPath())));
+        if (this.result.getItemCategory() == null) {
+            consumer.accept(new WorkbenchRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + CreativeModeTab.TAB_COMBAT.getRecipeFolderName() + "/" + id.getPath()), this.enchantment));
+        } else {
+            consumer.accept(new WorkbenchRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + id.getPath()), this.enchantment));
+        }
     }
 
     /**
@@ -107,8 +123,9 @@ public class WorkbenchRecipeBuilder
         private final List<ICondition> conditions;
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
+        private final Optional<Pair<Enchantment, Integer>> enchantment;
 
-        public Result(ResourceLocation id, ItemLike item, int count, List<WorkbenchIngredient> ingredients, List<ICondition> conditions, Advancement.Builder advancement, ResourceLocation advancementId)
+        public Result(ResourceLocation id, ItemLike item, int count, List<WorkbenchIngredient> ingredients, List<ICondition> conditions, Advancement.Builder advancement, ResourceLocation advancementId, Optional<Pair<Enchantment, Integer>> enchantment)
         {
             this.id = id;
             this.item = item.asItem();
@@ -117,6 +134,7 @@ public class WorkbenchRecipeBuilder
             this.conditions = conditions;
             this.advancement = advancement;
             this.advancementId = advancementId;
+            this.enchantment = enchantment;
         }
 
         @Override
@@ -138,6 +156,18 @@ public class WorkbenchRecipeBuilder
             if(this.count > 1)
             {
                 resultObject.addProperty("count", this.count);
+            }
+            if (this.enchantment.isPresent()) {
+                 /*
+                 String[] descriptionParts = enchantment.get().getFirst().getDescriptionId().split("[.]");
+                 if (descriptionParts.length >= 3)
+                 {
+                     resultObject.addProperty("enchant", descriptionParts[1] + ":" + descriptionParts[2]);
+                     resultObject.addProperty("enchant_lvl", enchantment.get().getSecond());
+                 }
+                  */
+                resultObject.addProperty("enchant", enchantment.get().getA().getDescriptionId()); // for the moment not the registry id
+                resultObject.addProperty("enchant_lvl", enchantment.get().getB());
             }
             json.add("result", resultObject);
         }

@@ -2,8 +2,8 @@
   "type": "cgm:workbench",
   "materials": [
     {
-      "count": 8,
-      "tag": "forge:nuggets/iron"
+      "count": 40,
+      "tag": "forge:ingots/iron"
     },
     {
       "count": 1,

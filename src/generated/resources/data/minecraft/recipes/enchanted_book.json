@@ -1,0 +1,18 @@
+{
+  "type": "cgm:workbench",
+  "materials": [
+    {
+      "count": 1,
+      "item": "minecraft:book"
+    },
+    {
+      "count": 1,
+      "tag": "forge:ingots/netherite"
+    }
+  ],
+  "result": {
+    "enchant": "enchantment.cgm.automatic_refill",
+    "enchant_lvl": 1,
+    "item": "minecraft:enchanted_book"
+  }
+}

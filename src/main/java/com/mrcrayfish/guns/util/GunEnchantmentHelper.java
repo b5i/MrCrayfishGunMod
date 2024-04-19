@@ -96,4 +96,10 @@ public class GunEnchantmentHelper
         int level = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.PUNCTURING.get(), weapon);
         return level * 0.05F;
     }
+
+    public static boolean shouldAutoRefill(ItemStack weapon)
+    {
+        int level = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.AUTOMATIC_REFILL.get(), weapon);
+        return level > 0;
+    }
 }

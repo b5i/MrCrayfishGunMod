@@ -146,5 +146,8 @@
     "cgm.action.steady_aim": "Steady Aim",
     "cgm.button.config.tooltip": "Config Options",
     "cgm.chat.open_curseforge_page": "Open CurseForge Page",
-    "cgm.chat.install_configured": "Install %s to access config options"
+    "cgm.chat.install_configured": "Install %s to access config options",
+
+    "enchantment.cgm.automatic_refill": "Auto Refill",
+    "enchantment.cgm.automatic_refill.desc": "Automatic refill of the gun if the player has it in his hands and if the player's inventory contains the ammo for it."
 }

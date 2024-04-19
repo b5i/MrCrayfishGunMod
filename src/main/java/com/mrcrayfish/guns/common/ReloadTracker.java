@@ -122,7 +122,7 @@ public class ReloadTracker
         if(event.phase == TickEvent.Phase.START && !event.player.level.isClientSide)
         {
             Player player = event.player;
-            if(ModSyncedDataKeys.RELOADING.getValue(player))
+            if(ModSyncedDataKeys.RELOADING.getValue(player)  || GunEnchantmentHelper.shouldAutoRefill(player.getInventory().getSelected()))
             {
                 if(!RELOAD_TRACKER_MAP.containsKey(player))
                 {
