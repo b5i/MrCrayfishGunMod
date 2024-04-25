@@ -2,16 +2,16 @@
   "type": "cgm:workbench",
   "materials": [
     {
-      "count": 40,
+      "count": 32,
       "tag": "forge:ingots/iron"
     },
     {
-      "count": 20,
+      "count": 32,
       "tag": "forge:gunpowder"
     }
   ],
   "result": {
-    "count": 2,
+    "count": 8,
     "item": "cgm:missile"
   }
 }

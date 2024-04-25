@@ -94,7 +94,7 @@ public class GunEnchantmentHelper
     public static float getPuncturingChance(ItemStack weapon)
     {
         int level = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.PUNCTURING.get(), weapon);
-        return level * 0.05F;
+        return level * 0.25F;
     }
 
     public static boolean shouldAutoRefill(ItemStack weapon)
