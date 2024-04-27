@@ -106,6 +106,11 @@ public class GunItem extends Item implements IColored, IMeta
     }
 
     @Override
+    public boolean canBeDepleted() { // so multiple enchants can be combined
+        return true;
+    }
+
+    @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity)
     {
         return true;

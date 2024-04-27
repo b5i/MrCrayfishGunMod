@@ -474,17 +474,21 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
                 bell.attemptToRing(this.level, pos, blockHitResult.getDirection());
             }
 
+
             int fireStarterLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.FIRE_STARTER.get(), this.weapon);
             if(fireStarterLevel > 0 && Config.COMMON.gameplay.griefing.setFireToBlocks.get())
             {
                 BlockPos offsetPos = pos.relative(blockHitResult.getDirection());
                 if(BaseFireBlock.canBePlacedAt(this.level, offsetPos, blockHitResult.getDirection()))
                 {
+                    /*
                     BlockState fireState = BaseFireBlock.getState(this.level, offsetPos);
                     this.level.setBlock(offsetPos, fireState, 11);
+                     */
                     ((ServerLevel) this.level).sendParticles(ParticleTypes.LAVA, hitVec.x - 1.0 + this.random.nextDouble() * 2.0, hitVec.y, hitVec.z - 1.0 + this.random.nextDouble() * 2.0, 4, 0, 0, 0, 0);
                 }
             }
+
             return;
         }
 
@@ -507,7 +511,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
             int fireStarterLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.FIRE_STARTER.get(), this.weapon);
             if(fireStarterLevel > 0)
             {
-                entity.setSecondsOnFire(2);
+                entity.setSecondsOnFire(5);
             }
 
             this.onHitEntity(entity, result.getLocation(), startVec, endVec, entityHitResult.isHeadshot());
