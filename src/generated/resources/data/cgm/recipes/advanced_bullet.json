@@ -6,8 +6,12 @@
       "item": "minecraft:copper_ingot"
     },
     {
-      "count": 8,
+      "count": 4,
       "tag": "forge:gunpowder"
+    },
+    {
+      "count": 8,
+      "item": "minecraft:paper"
     }
   ],
   "result": {

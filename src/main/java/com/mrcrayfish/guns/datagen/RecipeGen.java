@@ -14,6 +14,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
@@ -117,17 +118,21 @@ public class RecipeGen extends RecipeProvider
         // Ammo
         WorkbenchRecipeBuilder.crafting(ModItems.BASIC_BULLET.get(), 64)
                 .addIngredient(WorkbenchIngredient.of(Items.COPPER_INGOT, 6))
-                .addIngredient(WorkbenchIngredient.of(Tags.Items.GUNPOWDER, 8))
+                .addIngredient(WorkbenchIngredient.of(Tags.Items.GUNPOWDER, 4))
+                .addIngredient(WorkbenchIngredient.of(Items.PAPER, 8))
                 .addCriterion("has_copper_ingot", has(Items.COPPER_INGOT))
                 .addCriterion("has_gunpowder", has(Tags.Items.GUNPOWDER))
+                .addCriterion("has_paper", has(Items.PAPER))
                 .build(consumer);
         WorkbenchRecipeBuilder.crafting(ModItems.ADVANCED_AMMO.get(), 32)
                 .addIngredient(WorkbenchIngredient.of(Items.COPPER_INGOT, 6))
-                .addIngredient(WorkbenchIngredient.of(Tags.Items.GUNPOWDER, 8))
+                .addIngredient(WorkbenchIngredient.of(Tags.Items.GUNPOWDER, 4))
+                .addIngredient(WorkbenchIngredient.of(Items.PAPER, 8))
                 .addCriterion("has_copper_ingot", has(Items.COPPER_INGOT))
                 .addCriterion("has_gunpowder", has(Tags.Items.GUNPOWDER))
+                .addCriterion("has_paper", has(Items.PAPER))
                 .build(consumer);
-        WorkbenchRecipeBuilder.crafting(ModItems.SHELL.get(), 48)
+        WorkbenchRecipeBuilder.crafting(ModItems.SHELL.get(), 64)
                 .addIngredient(WorkbenchIngredient.of(Items.COPPER_INGOT, 6))
                 .addIngredient(WorkbenchIngredient.of(Tags.Items.INGOTS_GOLD, 4))
                 .addIngredient(WorkbenchIngredient.of(Tags.Items.GUNPOWDER, 4))
@@ -141,15 +146,15 @@ public class RecipeGen extends RecipeProvider
                 .addCriterion("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
                 .addCriterion("has_gunpowder", has(Tags.Items.GUNPOWDER))
                 .build(consumer);
-        WorkbenchRecipeBuilder.crafting(ModItems.GRENADE.get(), 2)
+        WorkbenchRecipeBuilder.crafting(ModItems.GRENADE.get(), 8)
                 .addIngredient(WorkbenchIngredient.of(Tags.Items.INGOTS_IRON, 3))
-                .addIngredient(WorkbenchIngredient.of(Tags.Items.GUNPOWDER, 5))
+                .addIngredient(WorkbenchIngredient.of(Tags.Items.GUNPOWDER, 8))
                 .addCriterion("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
                 .addCriterion("has_gunpowder", has(Tags.Items.GUNPOWDER))
                 .build(consumer);
-        WorkbenchRecipeBuilder.crafting(ModItems.STUN_GRENADE.get(), 2)
+        WorkbenchRecipeBuilder.crafting(ModItems.STUN_GRENADE.get(), 8)
                 .addIngredient(WorkbenchIngredient.of(Tags.Items.INGOTS_IRON, 3))
-                .addIngredient(WorkbenchIngredient.of(Tags.Items.GUNPOWDER, 5))
+                .addIngredient(WorkbenchIngredient.of(Tags.Items.GUNPOWDER, 8))
                 .addIngredient(WorkbenchIngredient.of(Tags.Items.DUSTS_GLOWSTONE, 4))
                 .addCriterion("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
                 .addCriterion("has_gunpowder", has(Tags.Items.GUNPOWDER))
@@ -231,6 +236,13 @@ public class RecipeGen extends RecipeProvider
                 .addCriterion("has_netherite_ingot", has(Tags.Items.INGOTS_NETHERITE))
                 .addCriterion("has_book", has(Items.BOOK))
                 .setResultEnchantment(ModEnchantments.AUTOMATIC_REFILL.get(), 1)
+                .build(consumer);
+
+        WorkbenchRecipeBuilder.crafting(Items.GUNPOWDER)
+                .addIngredient(WorkbenchIngredient.of(Items.CHARCOAL, 4))
+                .addIngredient(WorkbenchIngredient.of(Items.GLOWSTONE, 1))
+                .addCriterion("has_glowstone", has(Items.GLOWSTONE))
+                .addCriterion("has_charcoal", has(Items.CHARCOAL))
                 .build(consumer);
     }
 }

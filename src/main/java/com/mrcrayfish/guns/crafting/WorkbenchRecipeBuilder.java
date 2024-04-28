@@ -36,6 +36,7 @@ public class WorkbenchRecipeBuilder
     private final Advancement.Builder advancementBuilder;
     private final List<ICondition> conditions = new ArrayList<>();
     private Optional<Pair<Enchantment, Integer>> enchantment;
+    private int recipeId = 0;
 
     private WorkbenchRecipeBuilder(ItemLike item, int count)
     {
@@ -87,6 +88,13 @@ public class WorkbenchRecipeBuilder
         return this;
     }
 
+    // set the id of a recipe (so that you can have multiple recipes for each item)
+    public WorkbenchRecipeBuilder setRecipeId(int recipeId)
+    {
+        this.recipeId = recipeId;
+        return this;
+    }
+
     public void build(Consumer<FinishedRecipe> consumer)
     {
         ResourceLocation resourcelocation = Registry.ITEM.getKey(this.result);
@@ -97,9 +105,9 @@ public class WorkbenchRecipeBuilder
         this.validate(id);
         this.advancementBuilder.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
         if (this.result.getItemCategory() == null) {
-            consumer.accept(new WorkbenchRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + CreativeModeTab.TAB_COMBAT.getRecipeFolderName() + "/" + id.getPath()), this.enchantment));
+            consumer.accept(new WorkbenchRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + CreativeModeTab.TAB_COMBAT.getRecipeFolderName() + "/" + id.getPath() + "-" + this.recipeId), this.enchantment));
         } else {
-            consumer.accept(new WorkbenchRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + id.getPath()), this.enchantment));
+            consumer.accept(new WorkbenchRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + id.getPath() + "-" + this.recipeId), this.enchantment));
         }
     }
 
@@ -142,7 +150,7 @@ public class WorkbenchRecipeBuilder
         {
             JsonArray conditions = new JsonArray();
             this.conditions.forEach(condition -> conditions.add(CraftingHelper.serialize(condition)));
-            if(conditions.size() > 0)
+            if(!conditions.isEmpty())
             {
                 json.add("conditions", conditions);
             }
