@@ -21,7 +21,7 @@ public class PuncturingEnchantment extends GunEnchantment
     @Override
     public int getMinCost(int level)
     {
-        return 1 + (level - 1) * 10;
+        return 5 + (level - 1) * 3;
     }
 
     @Override

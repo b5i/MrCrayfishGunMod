@@ -15,12 +15,12 @@ public class LightweightEnchantment extends GunEnchantment
     @Override
     public int getMinCost(int level)
     {
-        return 15;
+        return 5;
     }
 
     @Override
     public int getMaxCost(int level)
     {
-        return this.getMinCost(level) + 20;
+        return this.getMinCost(level) + 10;
     }
 }

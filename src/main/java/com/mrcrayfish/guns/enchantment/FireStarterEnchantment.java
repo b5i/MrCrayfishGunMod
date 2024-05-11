@@ -15,12 +15,12 @@ public class FireStarterEnchantment extends GunEnchantment
     @Override
     public int getMinCost(int level)
     {
-        return 20;
+        return 5;
     }
 
     @Override
     public int getMaxCost(int level)
     {
-        return super.getMinCost(level) + 40;
+        return super.getMinCost(level) + 10;
     }
 }

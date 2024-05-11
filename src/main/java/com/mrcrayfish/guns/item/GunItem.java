@@ -7,6 +7,7 @@ import com.mrcrayfish.guns.common.Gun;
 import com.mrcrayfish.guns.common.NetworkGunManager;
 import com.mrcrayfish.guns.debug.Debug;
 import com.mrcrayfish.guns.enchantment.EnchantmentTypes;
+import com.mrcrayfish.guns.enchantment.GunEnchantment;
 import com.mrcrayfish.guns.util.GunEnchantmentHelper;
 import com.mrcrayfish.guns.util.GunModifierHelper;
 import net.minecraft.ChatFormatting;
@@ -184,6 +185,10 @@ public class GunItem extends Item implements IColored, IMeta
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)
     {
+        if (!(enchantment instanceof GunEnchantment))
+        {
+            return false;
+        }
         if(enchantment.category == EnchantmentTypes.SEMI_AUTO_GUN)
         {
             Gun modifiedGun = this.getModifiedGun(stack);

@@ -15,7 +15,7 @@ public class AutomaticRefillEnchantment extends GunEnchantment
     @Override
     public int getMinCost(int level)
     {
-        return 20;
+        return 15;
     }
 
     @Override

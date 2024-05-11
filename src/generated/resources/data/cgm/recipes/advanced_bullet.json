@@ -2,7 +2,7 @@
   "type": "cgm:workbench",
   "materials": [
     {
-      "count": 6,
+      "count": 5,
       "item": "minecraft:copper_ingot"
     },
     {
@@ -10,7 +10,7 @@
       "tag": "forge:gunpowder"
     },
     {
-      "count": 8,
+      "count": 4,
       "item": "minecraft:paper"
     }
   ],

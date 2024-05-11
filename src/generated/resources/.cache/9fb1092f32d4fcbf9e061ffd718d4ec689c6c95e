@@ -1,4 +1,4 @@
-// 1.19.2	2024-04-28T19:36:12.607819	Recipes
+// 1.19.2	2024-05-11T20:45:13.871695	Recipes
 745fb2c1af998b246c7ced6b57cf6089cad11c84 data/cgm/advancements/recipes/cgm/advanced_bullet-0.json
 2b5f7304c4cc19bb28cb981e817b5b9e119aa187 data/cgm/advancements/recipes/cgm/assault_rifle-0.json
 f6be6371e138f0622ce4464e592e30a77dea4264 data/cgm/advancements/recipes/cgm/basic_bullet-0.json
@@ -24,12 +24,12 @@ a6e5c762dddbfbee28f648b8a2f6905320544547 data/cgm/advancements/recipes/cgm/silen
 d1333661bbc66210121b333074f79a44ea0d3819 data/cgm/advancements/recipes/cgm/tactical_stock-0.json
 cc2b764470b04a74c3f50ee8d67bfe6ed29faff5 data/cgm/advancements/recipes/cgm/weighted_stock-0.json
 1480911ce75238dd8be108a5cd95139d2c2dd73b data/cgm/advancements/recipes/cgm/workbench.json
-c8619ce761052fbe72448c588d73686de559ac34 data/cgm/recipes/advanced_bullet.json
+8a2813f28f506c5238cc4c6ffcb344660db9f5e2 data/cgm/recipes/advanced_bullet.json
 2ba230a2d1b5faebd225d0965ad98f9d1cb079f4 data/cgm/recipes/assault_rifle.json
-fe4f931ebf2b9a87ef99ccf19cb02900dc763e58 data/cgm/recipes/basic_bullet.json
+9f16ec3ea615fa8ff9698f4b45f016c0c688417c data/cgm/recipes/basic_bullet.json
 078b448699ca7d3b543e37d9d269545e1f2a7ade data/cgm/recipes/bazooka.json
 2d2d2e6652750837d4f0931dba6d30d2ae972982 data/cgm/recipes/dye_item.json
-a5eecae8630cbdbc908ad09e9a9beecd511e59f2 data/cgm/recipes/grenade.json
+2b1f87c8509ff6f926f1f386f5ff5fcd2b3f8a91 data/cgm/recipes/grenade.json
 a646c03c733a1239ca48a6d8da2ee543fc9d6a27 data/cgm/recipes/grenade_launcher.json
 58a3a5fa96af5b733250b8938b9f7c770cb68620 data/cgm/recipes/heavy_rifle.json
 08dd586e2e7e926b29cc1bf69c4eacc418bdd3b0 data/cgm/recipes/light_grip.json
@@ -38,15 +38,15 @@ a646c03c733a1239ca48a6d8da2ee543fc9d6a27 data/cgm/recipes/grenade_launcher.json
 6f9f85819a24ebbef36a459247c937b9dd5a3042 data/cgm/recipes/machine_pistol.json
 377f738d69459f8eac0b3e7ce607f84fa9442e83 data/cgm/recipes/medium_scope.json
 49ee541ad292d4b1141c0049527e2b7cfcf53939 data/cgm/recipes/mini_gun.json
-2c6b0fce3534463d079a703a388d23e21850a88d data/cgm/recipes/missile.json
+ad9ae1b0f0b6980b90ccd189d03d87aa340b77c0 data/cgm/recipes/missile.json
 278af5e24acb39751852322f27f0231f6f3df6a7 data/cgm/recipes/pistol.json
 45c0ead8c7b289ff28f79f856cf8fec9f482e138 data/cgm/recipes/rifle.json
-8b33144b009e49488782fc0e9dea0b41ae3eb05e data/cgm/recipes/shell.json
+120f1a1244256af843835d1b49db4029657a05c4 data/cgm/recipes/shell.json
 6caeb13467db4c4272024b27f3b884fa5c08bda4 data/cgm/recipes/short_scope.json
 240077ca222ede5b06dd23a60dc26f26f9792a0f data/cgm/recipes/shotgun.json
 bccd4bca5179801302959a605b0b7466433f0bbd data/cgm/recipes/silencer.json
 bee22782a74107cdcca7d4dd66770da0290619ad data/cgm/recipes/specialised_grip.json
-41939ae5d8fffb3c72987c096ff8ad5b60a53c94 data/cgm/recipes/stun_grenade.json
+f75a0620449a11f1b03e65d11f1665512770f34b data/cgm/recipes/stun_grenade.json
 e1d6e58c72a380d498b0cb42c610e637731f6d30 data/cgm/recipes/tactical_stock.json
 871f4e167e66903ef4e2a46f0e9022ad65751470 data/cgm/recipes/weighted_stock.json
 257be56d8d00b4a455196194748298b139ec2722 data/cgm/recipes/workbench.json
